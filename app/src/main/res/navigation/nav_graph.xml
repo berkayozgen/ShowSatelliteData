@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/satellitesFragment">
+
+    <fragment
+        android:id="@+id/satellitesFragment"
+        android:name="com.example.showsatellitedata.ui.features.satellites.SatellitesFragment"
+        android:label="SatellitesFragment"
+        tools:layout="@layout/fragment_satellites" />
+
+    <fragment
+        android:id="@+id/satellitesDetailFragment"
+        android:name="com.example.showsatellitedata.ui.features.satellitesdetail.SatellitesDetailFragment"
+        android:label="SatellitesDetailFragment"
+        tools:layout="@layout/fragment_satellites_detail" />
 
 </navigation>

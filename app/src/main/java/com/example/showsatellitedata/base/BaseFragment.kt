@@ -27,7 +27,7 @@ abstract class BaseFragment<VM: BaseViewModel, DB: ViewDataBinding>: Fragment() 
             inflater,
             getLayout(),
             container,
-            true
+            false
         )
         binding?.lifecycleOwner = this
         return binding?.root
