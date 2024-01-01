@@ -5,6 +5,11 @@ import com.example.showsatellitedata.base.BaseFragment
 import com.example.showsatellitedata.databinding.FragmentSatellitesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import com.example.showsatellitedata.entity.SatelliteModel
+import com.example.showsatellitedata.utils.assets.loadJson
+import kotlinx.coroutines.launch
 
 class SatellitesFragment : BaseFragment<SatellitesViewModel, FragmentSatellitesBinding>() {
 
@@ -13,7 +18,10 @@ class SatellitesFragment : BaseFragment<SatellitesViewModel, FragmentSatellitesB
     override fun getLayout(): Int = R.layout.fragment_satellites
 
     override fun onViewCreateFinished() {
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            val satellites = requireActivity().loadJson<List<SatelliteModel>>("SATELLITE-LIST.json")
+            //TODO: initialize data
+        }
     }
 
 }
