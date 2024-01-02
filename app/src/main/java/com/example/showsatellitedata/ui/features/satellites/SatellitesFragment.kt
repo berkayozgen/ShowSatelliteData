@@ -12,21 +12,56 @@ import com.example.showsatellitedata.utils.assets.loadJson
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class SatellitesFragment : BaseFragment<SatellitesViewModel, FragmentSatellitesBinding>() {
+
+    private val satellitesAdapter: SatellitesRecyclerAdapter = SatellitesRecyclerAdapter() {satellite ->
+        findNavController().navigate(R.id.satellitesDetailFragment,
+            args = bundleOf("satellite" to satellite)
+        )
+    }
 
     override fun getViewModel(): Lazy<SatellitesViewModel> = viewModel()
 
     override fun getLayout(): Int = R.layout.fragment_satellites
 
     override fun onViewCreateFinished() {
+        initUi()
+        initObservers()
+
         viewLifecycleOwner.lifecycleScope.launch {
-            val satellites = requireActivity().loadJson<Array<SatelliteModel>>("SATELLITE-LIST.json")
-            delay(3_000)
-            findNavController().navigate(R.id.satellitesDetailFragment,
-                args = bundleOf("satellite" to satellites?.firstOrNull())
-            )
+            viewModel.showProgress(true)
+            requireActivity().loadJson<Array<SatelliteModel>>("SATELLITE-LIST.json")?.let {satellites ->
+                viewModel.initializeUi(satellites.toList())
+            }
+            viewModel.showProgress(false)
+        }
+
+    }
+
+    private fun initUi() {
+        binding?.apply {
+            rvSatellites.adapter = satellitesAdapter
+            etSearch.doAfterTextChanged { text ->
+                viewModel.onSearch(text.toString())
+            }
         }
     }
+
+    private fun initObservers() {
+        viewModel.satellites.observe(viewLifecycleOwner) { list ->
+            updateSatellites(list ?: emptyList())
+        }
+    }
+
+    private fun updateSatellites(list: List<SatelliteModel>) {
+        satellitesAdapter.submitList(list)
+    }
+
 
 }

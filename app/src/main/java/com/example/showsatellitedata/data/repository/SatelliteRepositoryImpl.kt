@@ -9,8 +9,6 @@ class SatelliteRepositoryImpl(
     private val satelliteDao: SatelliteDao
 ): SatelliteRepository {
 
-    override suspend fun getSatellites(): List<SatelliteModel> = satelliteDao.getSatellites()
-
     override suspend fun getSatelliteDetailById(id: Int): SatelliteDetailModel? =
         satelliteDao.getSatelliteDetailById(id)
 

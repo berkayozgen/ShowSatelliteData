@@ -13,9 +13,6 @@ interface SatelliteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSatelliteDetail(satelliteDetail: SatelliteDetailModel)
 
-    @Query("SELECT * FROM Satellites")
-    suspend fun getSatellites(): List<SatelliteModel>
-
     @Query("SELECT * FROM SatelliteDetails WHERE :id == id")
     suspend fun getSatelliteDetailById(id: Int): SatelliteDetailModel?
 
