@@ -5,22 +5,16 @@ import com.example.showsatellitedata.base.BaseFragment
 import com.example.showsatellitedata.databinding.FragmentSatellitesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.navigation.fragment.findNavController
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.example.showsatellitedata.entity.SatelliteModel
 import com.example.showsatellitedata.utils.assets.loadJson
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
 import androidx.core.os.bundleOf
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 class SatellitesFragment : BaseFragment<SatellitesViewModel, FragmentSatellitesBinding>() {
 
-    private val satellitesAdapter: SatellitesRecyclerAdapter = SatellitesRecyclerAdapter() {satellite ->
+    private val satellitesAdapter: SatellitesRecyclerAdapter = SatellitesRecyclerAdapter { satellite ->
         findNavController().navigate(R.id.satellitesDetailFragment,
             args = bundleOf("satellite" to satellite)
         )

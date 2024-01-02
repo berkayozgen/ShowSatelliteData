@@ -2,7 +2,6 @@ package com.example.showsatellitedata.data.repository
 
 import com.example.showsatellitedata.data.room.dao.SatelliteDao
 import com.example.showsatellitedata.domain.repository.SatelliteRepository
-import com.example.showsatellitedata.entity.SatelliteModel
 import com.example.showsatellitedata.entity.SatelliteDetailModel
 
 class SatelliteRepositoryImpl(

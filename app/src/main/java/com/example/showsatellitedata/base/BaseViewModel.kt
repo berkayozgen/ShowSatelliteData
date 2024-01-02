@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.koin.core.component.KoinComponent
 
-open class BaseViewModel() : ViewModel(), KoinComponent {
+open class BaseViewModel : ViewModel(), KoinComponent {
 
     val showLoading = MutableLiveData<Boolean>()
     val onError = MutableLiveData<String?>()

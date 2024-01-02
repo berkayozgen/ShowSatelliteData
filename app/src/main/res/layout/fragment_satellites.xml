@@ -32,6 +32,7 @@
             tools:listitem="@layout/item_satellite_list"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:divider="@drawable/divider"
             android:dividerHeight="1dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"

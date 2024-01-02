@@ -1,7 +1,6 @@
 package com.example.showsatellitedata.ui.features.satellitesdetail
 
 import com.example.showsatellitedata.base.BaseViewModel
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.showsatellitedata.domain.usecase.AppResult

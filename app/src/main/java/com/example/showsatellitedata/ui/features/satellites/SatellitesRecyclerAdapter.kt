@@ -25,6 +25,8 @@ class SatellitesRecyclerAdapter(
                 )
             )
             binding.tvSatelliteActivity.text = if (item.active) "Active" else "Passive"
+            binding.tvSatelliteName.alpha = if (item.active) 1.0F else 0.2F
+            binding.tvSatelliteActivity.alpha = if (item.active) 1.0F else 0.2F
             binding.root.setOnClickListener {
                 onItemClicked(item)
             }
