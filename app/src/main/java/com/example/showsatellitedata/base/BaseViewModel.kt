@@ -7,7 +7,7 @@ import org.koin.core.component.KoinComponent
 open class BaseViewModel() : ViewModel(), KoinComponent {
 
     val showLoading = MutableLiveData<Boolean>()
-    val onError = MutableLiveData<Any?>()
+    val onError = MutableLiveData<String?>()
 
     fun showProgress(show: Boolean) {
         showLoading.value = show
@@ -17,7 +17,7 @@ open class BaseViewModel() : ViewModel(), KoinComponent {
         onError.value = null
     }
 
-    fun showError(error: Exception) {
+    fun showError(error: String?) {
         onError.postValue(error)
     }
 

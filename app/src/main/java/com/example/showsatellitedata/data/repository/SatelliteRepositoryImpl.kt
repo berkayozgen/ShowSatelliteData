@@ -12,7 +12,7 @@ class SatelliteRepositoryImpl(
     override suspend fun getSatelliteDetailById(id: Int): SatelliteDetailModel? =
         satelliteDao.getSatelliteDetailById(id)
 
-    override suspend fun insertSatelliteDetail(satelliteDetail: SatelliteDetailModel) =
-        satelliteDao.insertSatelliteDetail(satelliteDetail)
+    override suspend fun insertSatelliteDetails(satelliteDetails: List<SatelliteDetailModel>) =
+        satelliteDao.insertSatelliteDetail(satelliteDetails)
 
 }

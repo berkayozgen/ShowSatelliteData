@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import android.app.AlertDialog
 
 abstract class BaseFragment<VM: BaseViewModel, DB: ViewDataBinding>: Fragment() {
 
@@ -42,6 +43,19 @@ abstract class BaseFragment<VM: BaseViewModel, DB: ViewDataBinding>: Fragment() 
     private fun initializeProgressListener() {
         viewModel.showLoading.observe(viewLifecycleOwner) { showLoading ->
             //TODO: Dialog Fragment -> Progress indicator
+            /*if (showLoading)
+                 progressDialog.show(childFragmentManager)
+             else
+                 progreesDialog.dismiss()*/
+        }
+
+        viewModel.onError.observe(viewLifecycleOwner) {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Error")
+                .setMessage("$it")
+                .setPositiveButton("Close") { dialog, _ ->
+                    dialog.dismiss()
+                }
         }
     }
 

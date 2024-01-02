@@ -11,7 +11,7 @@ import com.example.showsatellitedata.entity.SatelliteDetailModel
 interface SatelliteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSatelliteDetail(satelliteDetail: SatelliteDetailModel)
+    suspend fun insertSatelliteDetail(satelliteDetails: List<SatelliteDetailModel>)
 
     @Query("SELECT * FROM SatelliteDetails WHERE :id == id")
     suspend fun getSatelliteDetailById(id: Int): SatelliteDetailModel?

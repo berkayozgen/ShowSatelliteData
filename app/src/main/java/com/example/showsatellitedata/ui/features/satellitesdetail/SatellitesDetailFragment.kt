@@ -20,6 +20,8 @@ import com.example.showsatellitedata.utils.assets.loadJson
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import com.example.showsatellitedata.entity.SatellitePositionResponseModel
+
 
 class SatellitesDetailFragment : BaseFragment<SatellitesDetailViewModel, FragmentSatellitesDetailBinding>() {
 
@@ -32,13 +34,48 @@ class SatellitesDetailFragment : BaseFragment<SatellitesDetailViewModel, Fragmen
             .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
             .onEach { uiState ->
                 uiState.detail?.let {
-                    Log.d("DetailControl", "=> $it")
+                    setDetail(it)
                 }
-                uiState.loadFromAsset?.let {
-                    val details = requireActivity().loadJson<Array<SatelliteDetailModel>>("SATELLITE-DETAIL.json")
+                uiState.loadFromAsset?.let { shouldLoadFromAssets ->
+                    if (shouldLoadFromAssets) {
+                        loadDataFromAsset()
+                    }
                 }
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
+        viewModel.lastPosition
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { positionModel ->
+                binding?.tvSatelliteLastPosition?.text =
+                    "Last Position: (${positionModel.posX} , ${positionModel.posY})"
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            loadPositionsFromAsset()
+        }
+    }
+
+    private fun setDetail(satelliteDetail: SatelliteDetailModel) {
+        binding?.apply {
+            tvSatelliteName.text = viewModel.getSatellite()?.name
+            tvSatelliteFirstFlight.text = satelliteDetail.firstFlight
+            tvSatelliteHeightMass.text =
+                "Height/Mass: ${satelliteDetail.height}/${satelliteDetail.mass}"
+            tvSatelliteCost.text = "Cost: ${satelliteDetail.costPerLaunch}"
+        }
+    }
+
+    private suspend fun loadDataFromAsset() {
+        requireActivity().loadJson<Array<SatelliteDetailModel>>("SATELLITE-DETAIL.json")
+            ?.let { details ->
+                viewModel.insertSatelliteDetails(details.toList())
+            }
+    }
+
+    private suspend fun loadPositionsFromAsset() {
+        requireActivity().loadJson<SatellitePositionResponseModel>("POSITIONS.json")?.let {
+            viewModel.initializeLastPositions(it)
+        }
     }
 
 }

@@ -7,8 +7,9 @@ import com.example.showsatellitedata.entity.SatelliteDetailModel
 
 class InsertSatelliteDetailUseCase(
     private val satelliteRepository: SatelliteRepository
-): BaseUseCase<SatelliteDetailModel, Unit>() {
-    override suspend fun invoke(param: SatelliteDetailModel) = performUseCase {
-        satelliteRepository.insertSatelliteDetail(param)
+
+): BaseUseCase<List<SatelliteDetailModel>, Unit>() {
+    override suspend fun invoke(param: List<SatelliteDetailModel>) = performUseCase {
+        satelliteRepository.insertSatelliteDetails(param)
     }
 }

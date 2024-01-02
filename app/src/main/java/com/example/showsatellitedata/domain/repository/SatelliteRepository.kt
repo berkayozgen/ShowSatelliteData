@@ -7,6 +7,6 @@ interface SatelliteRepository {
 
     suspend fun getSatelliteDetailById(id: Int): SatelliteDetailModel?
 
-    suspend fun insertSatelliteDetail(satelliteDetail: SatelliteDetailModel)
+    suspend fun insertSatelliteDetails(satelliteDetails: List<SatelliteDetailModel>)
 
 }
