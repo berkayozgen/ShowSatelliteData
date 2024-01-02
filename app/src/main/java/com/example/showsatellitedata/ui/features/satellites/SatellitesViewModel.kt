@@ -4,9 +4,9 @@ import com.example.showsatellitedata.base.BaseViewModel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.showsatellitedata.domain.usecase.AppResult
-import com.example.showsatellitedata.domain.usecase.GetSatellitesUseCase
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import com.example.showsatellitedata.domain.usecase.satellites.GetSatellitesUseCase
+
 
 class SatellitesViewModel(
     private val getSatellitesUseCase: GetSatellitesUseCase

@@ -35,7 +35,14 @@ abstract class BaseFragment<VM: BaseViewModel, DB: ViewDataBinding>: Fragment() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeProgressListener()
         onViewCreateFinished()
+    }
+
+    private fun initializeProgressListener() {
+        viewModel.showLoading.observe(viewLifecycleOwner) { showLoading ->
+            //TODO: Dialog Fragment -> Progress indicator
+        }
     }
 
     override fun onDestroyView() {

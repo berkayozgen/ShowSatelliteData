@@ -9,12 +9,8 @@ open class BaseViewModel() : ViewModel(), KoinComponent {
     val showLoading = MutableLiveData<Boolean>()
     val onError = MutableLiveData<Any?>()
 
-    fun showProgress() {
-        showLoading.value = true
-    }
-
-    fun hideProgress() {
-        showLoading.value = false
+    fun showProgress(show: Boolean) {
+        showLoading.value = show
     }
 
     fun onErrorShowed() {

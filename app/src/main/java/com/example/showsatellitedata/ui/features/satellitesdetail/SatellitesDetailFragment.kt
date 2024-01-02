@@ -11,6 +11,15 @@ import com.example.showsatellitedata.databinding.FragmentSatellitesBinding
 import com.example.showsatellitedata.databinding.FragmentSatellitesDetailBinding
 import com.example.showsatellitedata.ui.features.satellites.SatellitesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import com.example.showsatellitedata.entity.SatelliteDetailModel
+import com.example.showsatellitedata.utils.assets.loadJson
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class SatellitesDetailFragment : BaseFragment<SatellitesDetailViewModel, FragmentSatellitesDetailBinding>() {
 
@@ -19,6 +28,16 @@ class SatellitesDetailFragment : BaseFragment<SatellitesDetailViewModel, Fragmen
     override fun getLayout(): Int = R.layout.fragment_satellites_detail
 
     override fun onViewCreateFinished() {
+        viewModel.uiState
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.CREATED)
+            .onEach { uiState ->
+                uiState.detail?.let {
+                    Log.d("DetailControl", "=> $it")
+                }
+                uiState.loadFromAsset?.let {
+                    val details = requireActivity().loadJson<Array<SatelliteDetailModel>>("SATELLITE-DETAIL.json")
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
     }
 

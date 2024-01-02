@@ -7,6 +7,7 @@ import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.IllegalArgumentException
+import com.google.gson.GsonBuilder
 
 suspend inline fun <reified T> Activity.loadJson(fileName: String): T? {
     if (!fileName.contains(".json"))

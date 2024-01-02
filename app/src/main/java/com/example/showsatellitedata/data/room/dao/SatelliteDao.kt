@@ -4,17 +4,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.showsatellitedata.entity.SatelliteModel
+import androidx.room.OnConflictStrategy
+import com.example.showsatellitedata.entity.SatelliteDetailModel
 
 @Dao
 interface SatelliteDao {
 
-    @Insert
-    suspend fun insertSatellites(list: List<SatelliteModel>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSatelliteDetail(satelliteDetail: SatelliteDetailModel)
 
     @Query("SELECT * FROM Satellites")
     suspend fun getSatellites(): List<SatelliteModel>
 
-    @Query("SELECT * FROM Satellites WHERE :id == id")
-    suspend fun getSatelliteById(id: Int): SatelliteModel?
+    @Query("SELECT * FROM SatelliteDetails WHERE :id == id")
+    suspend fun getSatelliteDetailById(id: Int): SatelliteDetailModel?
 
 }

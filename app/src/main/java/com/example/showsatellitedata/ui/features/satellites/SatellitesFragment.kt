@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.showsatellitedata.entity.SatelliteModel
 import com.example.showsatellitedata.utils.assets.loadJson
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import androidx.core.os.bundleOf
 
 class SatellitesFragment : BaseFragment<SatellitesViewModel, FragmentSatellitesBinding>() {
 
@@ -19,8 +21,11 @@ class SatellitesFragment : BaseFragment<SatellitesViewModel, FragmentSatellitesB
 
     override fun onViewCreateFinished() {
         viewLifecycleOwner.lifecycleScope.launch {
-            val satellites = requireActivity().loadJson<List<SatelliteModel>>("SATELLITE-LIST.json")
-            //TODO: initialize data
+            val satellites = requireActivity().loadJson<Array<SatelliteModel>>("SATELLITE-LIST.json")
+            delay(3_000)
+            findNavController().navigate(R.id.satellitesDetailFragment,
+                args = bundleOf("satellite" to satellites?.firstOrNull())
+            )
         }
     }
 

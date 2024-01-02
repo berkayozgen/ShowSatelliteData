@@ -15,6 +15,12 @@
         android:id="@+id/satellitesDetailFragment"
         android:name="com.example.showsatellitedata.ui.features.satellitesdetail.SatellitesDetailFragment"
         android:label="SatellitesDetailFragment"
-        tools:layout="@layout/fragment_satellites_detail" />
+        tools:layout="@layout/fragment_satellites_detail" >
+        <argument
+            android:name="satellite"
+            app:argType="com.example.showsatellitedata.entity.SatelliteModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>
